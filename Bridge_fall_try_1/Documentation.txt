@@ -1,0 +1,40 @@
+Objects:
+
+1) Player:
+Player Motor Script is responsible for movement. A character controller is used rather then rigid body. Forward Speed is in z direction, drag is sideways motion.
+Variable Joystick is also used i.e joystick materializes wherever user clicks and is invisible on screen.
+
+Player Hit Script Stops player movement when he hits obstacles, resumes motion when he clears them by side motion. It is also responsible for dance moves and to retry if players hits base
+collider.
+
+On_Bridge ensures player falls with velocity if he comes across hole or bridge fall reaches him.
+
+2) Bridge:
+The bridge is made of two halves. Each half is made of 20 rows. Each row is made of 4 cubes that are visible and 4 invisible cubes. Each cube has a rigidbody component with is Kinematic on
+preventing it from experiencing physics. Each cube has Bridge_Fall Script.
+
+Bridge_fall Script Takes time in secondes and uses coroutines to start bridge() function after set time. This function turns the Is Kinemetic off for cube making it experience physics and 
+fall.
+
+Each cube in the row has a different time, the time increments by 0.5 sec each row, i.e cube 1 in row 1 has time 0, so cube 1 in row 2 has time 0.5, Each cube also has an invisible cube 
+with the time set to the max time in row of cubes. This helps the bridge fall in a more natural way (up and down motion of cubes)
+
+There is an exta row in 2nd half (row 20) which helps throw cubes how in the sky when its physics turns on.
+
+3) Fininsh Line:
+Its made of 3 rows of normal cubes and a collider for fininsh line (player hit script accesses)
+
+4) Boundaries:
+All three Bounderies are mesh Coliders, the left and right boundery prevent the player from falling and the base boundery helps bring retry screen (player hit) 
+
+5) Obstacles:
+Each Obstacle has a Barricade and an Allow_movement collider. The players forward speed hits 0 when he hits the collider of the barricade and goes back to normal when he hits allow_movement
+collider.
+
+Each Barricade has same Bridge_fall script, its time matching that of the cube beneath it ensuring it falls when the tile beneath it falls.
+
+6) Cinemachine camera is used with a few settings tweaked but there is no script attached to it.
+
+7) GameManager:
+GameManager manages moving to next level, Invoking EndGame and Retry screens in Canvas (LevelComplete and Level_Fail).
+
